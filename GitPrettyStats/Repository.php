@@ -1,9 +1,6 @@
 <?php
 namespace GitPrettyStats;
 
-require '/home/kyle/Projects/gitlist/vendor/Carbon/Carbon.php';
-require '/home/kyle/Projects/gitlist/vendor/GitPrettyStats/Statistics.php';
-
 use Carbon\Carbon;
 use Gitter\Client;
 use GitPrettyStats\Statistics;

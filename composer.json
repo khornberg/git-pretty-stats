@@ -1,0 +1,8 @@
+{
+    "name": "modess/git-pretty-stats",
+    "require": {
+        "nesbot/carbon": "*",
+        "klaussilveira/gitter": "0.2.*"
+    },
+    "minimum-stability": "stable"
+}

@@ -1,8 +1,20 @@
 {
     "name": "modess/git-pretty-stats",
+    "type": "library",
+    "description": "Pretty git repository statistics",
+    "keywords": [
+        "git",
+        "repository",
+        "statistics"
+    ],
+    "license": "MIT",
     "require": {
         "nesbot/carbon": "*",
         "klaussilveira/gitter": "0.2.*"
     },
-    "minimum-stability": "stable"
+    "autoload": {
+      "psr-0": {
+        "GitPrettyStats": "src"
+      }
+    }
 }

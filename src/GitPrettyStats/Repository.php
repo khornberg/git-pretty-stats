@@ -167,19 +167,22 @@ class Repository
     {
         $email = $commit->getAuthor()->getEmail();
         $name  = $commit->getAuthor()->getName();
+        $hash  = $commit->getHash();
 
         $email = $this->getEmailAlias($email);
 
         if (!isset($this->commitsByContributor[$email])) {
             $this->commitsByContributor[$email] = array(
                 'name'    => $name,
-                'commits' => array()
+                'commits' => array(),
+                'hashes' => array()
             );
         }
 
         $date = $commit->getCommiterDate()->format('Y-m-d');
 
         $this->commitsByContributor[$email]['commits'][$date][] = $commit;
+        $this->commitsByContributor[$email]['hashes'][$date][] = $hash;
     }
 
     /**
@@ -346,6 +349,7 @@ class Repository
                 'email'   => $email,
                 'commits' => $totalCommits,
                 'data'    => $commitsData,
+                'hashes' => $contributor['hashes'],
             );
         }
 

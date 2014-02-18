@@ -167,22 +167,18 @@ class Repository
     {
         $email = $commit->getAuthor()->getEmail();
         $name  = $commit->getAuthor()->getName();
-        $hash  = $commit->getHash();
-
         $email = $this->getEmailAlias($email);
 
         if (!isset($this->commitsByContributor[$email])) {
             $this->commitsByContributor[$email] = array(
                 'name'    => $name,
                 'commits' => array(),
-                'hashes' => array()
             );
         }
 
         $date = $commit->getCommiterDate()->format('Y-m-d');
 
         $this->commitsByContributor[$email]['commits'][$date][] = $commit;
-        $this->commitsByContributor[$email]['hashes'][$date][] = $hash;
     }
 
     /**
@@ -319,11 +315,14 @@ class Repository
      *
      * @return array
      */
-    public function getCommitsByContributor()
+    public function getCommitsByContributor($emailSearch = null)
     {
         $data = array();
+        $emailKey = array($emailSearch => '');
+        $contributors = array();
+        $contributors = ($emailSearch !== null) ? array_intersect_key($this->commitsByContributor, $emailKey) : $this->commitsByContributor;
 
-        foreach ($this->commitsByContributor as $email => $contributor) {
+        foreach ($contributors as $email => $contributor) {
             $begin    = $this->getFirstCommitDate();
             $end      = $this->getLastCommitDate();
             $interval = \DateInterval::createFromDateString('1 day');
@@ -349,8 +348,11 @@ class Repository
                 'email'   => $email,
                 'commits' => $totalCommits,
                 'data'    => $commitsData,
-                'hashes' => $contributor['hashes'],
             );
+
+            if ($emailSearch !== null) {
+                $data[0]['hashes'] = $contributor['commits'];
+            }
         }
 
         usort($data, array($this, 'sortContributorsByCommits'));

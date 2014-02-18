@@ -7,3 +7,7 @@ For that reason I do not include tests, publish this to [packagist](https://pack
 If you use this, you are responsible to provide a way to read the file system, a respository object, and means of displaying the data. See orginal project to view what data this library provides.
 
 License is MIT from the orginal project.
+
+I removed the email alias dependency and added the ability get the commit data
+for a single contributor via email address. I also modified the returned data
+for a single contributor.
